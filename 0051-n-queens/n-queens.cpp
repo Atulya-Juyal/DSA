@@ -1,12 +1,16 @@
 class Solution {
 public:
     bool isSafe(vector<string>& board, int row, int col, int n){
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < col; j++){
-                if(board[i][j] == 'Q'){
-                    if(i == row || abs(row-i) == abs(col-j)) return false;
-                }
-            }
+        for(int j = 0; j < col; j++){
+            if(board[row][j] == 'Q') return false;
+        }
+
+        for(int i = row-1, j = col-1; i >= 0 && j >= 0; i-- , j--){
+            if(board[i][j] == 'Q') return false;
+        }
+
+        for(int i = row+1, j = col-1; i < n && j >= 0; i++ , j--){
+            if(board[i][j] == 'Q') return false;
         }
 
         return true;
