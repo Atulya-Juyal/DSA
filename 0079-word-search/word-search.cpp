@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool dfs(vector<vector<char>>& board, int r, int c, int i, string& word){
+        if(i == word.size()) return true;
+
+        if(r < 0 || c < 0 || r >= board.size() || c >= board[0].size() || board[r][c] != word[i]) return false;
+
+        char cur = board[r][c];
+        board[r][c] = '.';
+        i++;
+
+        bool res = dfs(board, r+1, c, i, word) || dfs(board, r-1, c, i, word) || dfs(board, r, c+1, i, word) || dfs(board, r, c-1, i, word);
+
+        board[r][c] = cur;
+
+        return res;
+    }
+
+
+    bool exist(vector<vector<char>>& board, string word) {
+        int row = board.size();
+        int col = board[0].size();
+
+        for(int r = 0; r < row; r++){
+            for(int c = 0; c < col; c++){
+                if(dfs(board, r, c, 0, word)){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+};
