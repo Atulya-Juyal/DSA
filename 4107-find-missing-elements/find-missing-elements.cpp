@@ -11,8 +11,10 @@ public:
             maxi = max(maxi, i);
         }
 
+        unordered_set<int> s(nums.begin(), nums.end());
+
         for(int i = mini + 1; i < maxi; i++){
-            if(!count(nums.begin(), nums.end(), i)){
+            if(!s.count(i)){
                 res.push_back(i);
             }
         }
