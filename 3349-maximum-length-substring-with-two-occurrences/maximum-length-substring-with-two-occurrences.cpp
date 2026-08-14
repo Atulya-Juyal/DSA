@@ -1,25 +1,19 @@
 class Solution {
 public:
     int maximumLengthSubstring(string s) {
-        int res = 0;
+        vector<int> f(26);
 
-        unordered_map<char, int> mp;
+        int i = 0, res = 0;
 
-        int i = 0;
-        int j = 0;
+        for (int j = 0; j < s.size(); j++) {
+            f[s[j] - 'a']++;
 
-        while(j < s.size()){
-            if(mp[s[j]] == 2){
-                while(mp[s[j]] == 2){
-                    mp[s[i]]--;
-                    i++;
-                }
+            while (f[s[j] - 'a'] > 2) {
+                f[s[i] - 'a']--;
+                i++;
             }
-            
-            mp[s[j]]++;
-            j++;
 
-            res = max(res, j-i);
+            res = max(res, j - i + 1);
         }
 
         return res;
